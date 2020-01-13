@@ -47,7 +47,6 @@ void OutputOptModel(const std::string& load_model_dir,
   lite_api::CxxConfig config;
   config.set_model_dir(load_model_dir);
   config.set_valid_places({
-      Place{TARGET(kX86), PRECISION(kFloat)},
       Place{TARGET(kARM), PRECISION(kFloat)},
   });
   auto predictor = lite_api::CreatePaddlePredictor(config);
@@ -87,6 +86,7 @@ void Run(const std::vector<std::vector<int64_t>>& input_shapes,
     for (int i = 0; i < input_shapes[j].size(); ++i) {
       input_num *= input_shapes[j][i];
     }
+
     for (int i = 0; i < input_num; ++i) {
       input_data[i] = 1.f;
     }
